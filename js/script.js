@@ -50,3 +50,4 @@ prev.addEventListener('click', function(){
     if(counterImg < 0) counterImg = numImgs - 1;
     items[counterImg].classList.add('active');
 })
+
