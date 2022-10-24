@@ -7,28 +7,18 @@ const image = [
     'mushrooms.jpg',
     'mountain-snow.jpg'
 ];
-let numImgs = 5;
 //CONTENITORE IMMAGINI
 const slider = document.querySelector('.img-wrapper');
-
+let numImgs = 5;
 let imgTags = '';
-//CREO UN CICLO PER L'ARRAY E CREO UNA STRING PER LO SLIDER
 
-
- for(let i = 0; i < image.length; i++){
-        imgTags += `
-            <img class="item" src="img/${image[i]}" alt="${image[i]}">
-        `;
-    }
-
-//AGGIUNGO I TAG ALLO SLIDER
-slider.innerHTML += imgTags;
+//INIZIALIZZO TUTTO
+init()
 
 //CREO UN CONTATORE PER LE IMMAGINI
 let counterImg = 0;
 //SALVO GLI ITEM IN UNA COLLECTION
 const items = document.getElementsByClassName('item');
-
 //assegno la classe active al primo elemento deella collection
 items[counterImg].classList.add('active')
 
@@ -37,24 +27,56 @@ items[counterImg].classList.add('active')
 const next = document.querySelector('.down');
 const prev = document.querySelector('.top');
 
-
+//AGGIUNGO EVENTI PER LA NAVIGAZIONE AVANTI/INDIETRO NELLO SLIDER
 next.addEventListener('click', function(){
-    items[counterImg].classList.remove('active')
-    counterImg++;
-    
+    navigatorNext();
+    clearInterval(autoplay);
+});
 
-})
 prev.addEventListener('click', function(){
-    items[counterImg].classList.remove('active')
-    counterImg--;
-    if(counterImg < 0) counterImg = numImgs - 1;
-    items[counterImg].classList.add('active');
-})
+    navigatorPrev();
+    clearInterval(autoplay);
+});
 
 
 
-automaticSlider();
 
+
+
+          ///////////
+////////// FUNCTIONS ///////////
+          //////////
+
+function init(){
+
+    automaticSlider();
+    imgGenerator();
+    
+};
+
+function imgGenerator(){
+
+    for(let i = 0; i < image.length; i++){
+        imgTags += `
+        <img class="item" src="img/${image[i]}" alt="${image[i]}">
+        `;
+    }
+    //AGGIUNGO I TAG ALLO SLIDER
+    slider.innerHTML += imgTags;
+}
+
+function navigatorNext(){
+        items[counterImg].classList.remove('active')
+        counterImg++
+        if(counterImg === numImgs) counterImg = 0;
+        items[counterImg].classList.add('active');
+}
+function navigatorPrev(){
+        items[counterImg].classList.remove('active')
+        counterImg--
+        if(counterImg < 0) counterImg = numImgs - 1;
+        items[counterImg].classList.add('active');
+}
 
 function automaticSlider(){
     
@@ -71,5 +93,6 @@ function automaticSlider(){
     });
     
     slider.addEventListener("mouseout", automaticSlider);
-}
 
+    
+}
