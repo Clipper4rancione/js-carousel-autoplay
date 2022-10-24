@@ -50,10 +50,13 @@ prev.addEventListener('click', function(){
     if(counterImg < 0) counterImg = numImgs - 1;
     items[counterImg].classList.add('active');
 })
-
 const autoplay = setInterval(function(){
     items[counterImg].classList.remove('active')
     counterImg++
     if(counterImg === numImgs) counterImg = 0;
     items[counterImg].classList.add('active');
 }, 1000);
+
+slider.addEventListener("mouseover", function(){
+    clearInterval(autoplay);
+});
