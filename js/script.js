@@ -14,11 +14,12 @@ const slider = document.querySelector('.img-wrapper');
 let imgTags = '';
 //CREO UN CICLO PER L'ARRAY E CREO UNA STRING PER LO SLIDER
 
-for(let i = 0; i < image.length; i++){
-    imgTags += `
-        <img class="item" src="img/${image[i]}" alt="${image[i]}">
-    `;
-}
+
+ for(let i = 0; i < image.length; i++){
+        imgTags += `
+            <img class="item" src="img/${image[i]}" alt="${image[i]}">
+        `;
+    }
 
 //AGGIUNGO I TAG ALLO SLIDER
 slider.innerHTML += imgTags;
@@ -40,8 +41,7 @@ const prev = document.querySelector('.top');
 next.addEventListener('click', function(){
     items[counterImg].classList.remove('active')
     counterImg++;
-    if(counterImg === numImgs) counterImg = 0;
-    items[counterImg].classList.add('active');
+    
 
 })
 prev.addEventListener('click', function(){
@@ -51,3 +51,9 @@ prev.addEventListener('click', function(){
     items[counterImg].classList.add('active');
 })
 
+const autoplay = setInterval(function(){
+    items[counterImg].classList.remove('active')
+    counterImg++
+    if(counterImg === numImgs) counterImg = 0;
+    items[counterImg].classList.add('active');
+}, 1000);
